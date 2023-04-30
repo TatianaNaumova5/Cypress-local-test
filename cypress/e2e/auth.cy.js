@@ -1,11 +1,13 @@
 describe('Auth', ()=>{
   it('Sign in with valid credentials', ()=>{
     cy.visit('https://localcoding.us/user/login')
+
     cy.get('#normal_login_email').type('tatiananaumova5@gmail.com')
     cy.get('#normal_login_password').type('Liev2020!')
     cy.get('.login-form-button').click()
     cy.get('.ant-avatar-square').should('be.visible')
   })
+
    it('Check if the placeholder contain input Email', ()=>{
      cy.visit('https://localcoding.us/user/login')
      cy.get('#normal_login_email').should('be.visible')
@@ -13,12 +15,19 @@ describe('Auth', ()=>{
 
   it('Sign in form validation', ()=>{
     cy.visit('https://localcoding.us/user/login')
+
     cy.get('#normal_login_email').should('have.value','')
     cy.get('#normal_login_password').should('have.value','')
     cy.get('.login-form-button').should('be.disabled')
 
     cy.get('#normal_login_password').type('test')
-    cy.get('#normal_login_password').should('not.exist')
+    cy.get('#normal_login_password_help').should('not.exist')
+    cy.get('.login-form-button').should('be.disabled')
+
+    cy.get('#normal_login_email').type('test')
+    cy.get('#normal_login_email_help')
+      .should('have.text', "'email' is not a valid email")
+      .should('be.visible')
     cy.get('.login-form-button').should('be.disabled')
 
     cy.get('#normal_login_email').type('@')
@@ -41,9 +50,8 @@ describe('Auth', ()=>{
 
     cy.get('#normal_login_email').type('com')
     cy.get('#normal_login_email_help')
-      .should('have.text', "'email' is not a valid email")
-      .should('be.visible')
-    cy.get('.login-form-button').should('be.disabled')
+      .should('not.exist')
+    cy.get('.login-form-button').should('be.enabled')
 
     cy.get('#normal_login_email').clear()
     cy.get('#normal_login_email_help')
@@ -59,25 +67,32 @@ describe('Auth', ()=>{
 
   })
 
+
+
   it('Check if the placeholder contain input Password', ()=>{
     cy.visit('https://localcoding.us/user/login')
     cy.get('#normal_login_password').should('be.visible')
   })
 
 
-  it('Login with incorrect credentials has massage "Auth faild"', () => {
+  it('Login with incorrect credentials has massage "Auth failed"', () => {
     cy.visit('https://localcoding.us/user/login')
+
     cy.get('#normal_login_email').type('test@gmail.com')
-    cy.get('#normal_login_password').type('Liev2020!')
+    cy.get('#normal_login_password').type('123123')
     cy.get('.login-form-button').click()
-    cy.get('.ant-notification-notice-message').should('have.text', 'Auth failed')
+    cy.get('.ant-notification-notice-message')
+      .should('have.text', 'Auth failed')
+      .should('be.visible')
   })
 
   it('Log in with not a valid email', () => {
     cy.visit('https://localcoding.us/user/login')
+
     cy.get('#normal_login_email').type('somaEmail')
     cy.get('#normal_login_password').type('Liev2020!')
-    cy.get('.ant-form-item-explain-error').should('have.text', "'email' is not a valid email")
+    cy.get('.ant-form-item-explain-error')
+      .should('have.text', "'email' is not a valid email")
   })
 
   it('Email is "Required"', () => {
