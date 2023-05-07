@@ -1,5 +1,5 @@
-describe('Courses', ()=>{
-  beforeEach(()=>{
+describe('Courses', () => {
+  beforeEach(() => {
     cy.visit('/user/login')
   })
 })
