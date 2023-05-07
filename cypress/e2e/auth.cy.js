@@ -1,11 +1,11 @@
 describe('Auth', ()=>{
   beforeEach(()=>{
-    cy.visit('https://localcoding.us/user/login')
+    cy.visit('/user/login')
   })
 
   it('Sign in with valid credentials', ()=>{
-    cy.get('#normal_login_email').type('tatiananaumova5@gmail.com')
-    cy.get('#normal_login_password').type('Liev2020!')
+    cy.get('#normal_login_email').type(Cypress.env('email'))
+    cy.get('#normal_login_password').type(Cypress.env('password'))
     cy.get('.login-form-button').click()
     cy.get('.ant-avatar-square').should('be.visible')
   })
@@ -72,7 +72,7 @@ describe('Auth', ()=>{
 
 
   it('Login with incorrect credentials has massage "Auth failed"', () => {
-    cy.get('#normal_login_email').type('test@gmail.com')
+    cy.get('#normal_login_email').type(Cypress.env('email'))
     cy.get('#normal_login_password').type('123123')
     cy.get('.login-form-button').click()
     cy.get('.ant-notification-notice-message')
@@ -81,7 +81,7 @@ describe('Auth', ()=>{
   })
 
   it('Log in with not a valid email', () => {
-    cy.get('#normal_login_email').type('somaEmail')
+    cy.get('#normal_login_email').type('someEmail')
     cy.get('#normal_login_password').type('Liev2020!')
     cy.get('.ant-form-item-explain-error')
       .should('have.text', "'email' is not a valid email")
@@ -93,7 +93,7 @@ describe('Auth', ()=>{
   })
 
   it('Password is "Required"', () => {
-    cy.get('#normal_login_email').type('tatiananaumova5@gmail.com')
+    cy.get('#normal_login_email').type(Cypress.env('email'))
     cy.get('#normal_login_password').type('123456').clear()
     cy.get('.ant-form-item-explain-error').should('have.text', 'Required')
   })
