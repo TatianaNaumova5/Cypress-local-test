@@ -3,8 +3,15 @@ declare namespace Cypress {
     /**
      * Sign in using email & password
      * @example
-     * cy.login('foo@bar.com', '123456')
+     * cy.loginByCredentials('foo@bar.com', '123456')
      */
-    login(email: string, password: string): Chainable<any>
+    loginByCredentials(email: string, password: string): Chainable<any>
+
+    /**
+     * Sign in using token & userId
+     * @example
+     * cy.loginByToken()
+     */
+    loginByToken(): Chainable<any>
   }
 }
