@@ -73,6 +73,33 @@ describe('Auth', () => {
     cy.get('#root').should('be.visible');
   });
 
+  it('Verification of text ', ()=>{
+    cy.get('#normal_login > div:nth-child(5) > div > div');
+    cy.get('body').should('contain', 'Нет аккаунта?' );
+    cy.get('body').should('contain', 'Забыли пароль?')
+      .should('exist')
+      .should('be.visible');
+  })
+
+
+  it('Verification of registration link', () => {
+    cy.contains('a', 'Зарегистрируйтесь')
+      .should('exist')
+      .should('have.text', 'Зарегистрируйтесь')
+      .should('be.visible')
+      cy.contains('a', 'Зарегистрируйтесь').click()
+    cy.get('#root > div').should('be.visible')
+  });
+
+  it('Verification  of Reset password link', ()=>{
+    cy.get('a[href="/user/password/reset"]')
+      .should('exist')
+      .should('have.text', "Сбросьте его")
+      .should('be.visible');
+    cy.get('a[href="/user/password/reset"]').click();
+    cy.get('#root > div').should('be.visible');
+  })
+
   it('Login with incorrect credentials has massage "Auth failed"', () => {
     cy.get('#normal_login_email').type(Cypress.env('email'))
     cy.get('#normal_login_password').type('123123')
