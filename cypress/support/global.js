@@ -1,5 +1,5 @@
 before(() => {
-  cy.request('POST', `${Cypress.env('apiBaseUrl')}/user/login`, {
+  cy.request('POST', 'https://server-prod.pasv.us/user/login', {
     email: Cypress.env('email'),
     password: Cypress.env('password'),
   }).then(response => {
