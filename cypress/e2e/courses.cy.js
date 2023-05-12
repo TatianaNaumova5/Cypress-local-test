@@ -1,9 +1,6 @@
 describe('Courses', () => {
   beforeEach(() => {
-    cy.visit('/user/login')
-    cy.get('#normal_login_email').type(Cypress.env('email'))
-    cy.get('#normal_login_password').type(Cypress.env('password'))
-    cy.get('.login-form-button').click()
+    cy.visit('/course')
   })
 
   it('Verify topmenu Courses open new page', () => {
