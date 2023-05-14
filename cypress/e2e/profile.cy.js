@@ -16,3 +16,5 @@ describe('Profile', () => {
     cy.location('pathname').should('eq', '/')
   })
 })
+
+

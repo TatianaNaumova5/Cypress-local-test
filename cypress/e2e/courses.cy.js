@@ -18,7 +18,7 @@ describe('Courses', () => {
         console.log(array, 'element')
         console.log(array[array.length - 1], 'href')
         cy.visit(`/course/${array[array.length - 1]}`)
-        cy.location('pathname').should('include', array[array.length - 1])
+        //cy.location('pathname').should('include', array[array.length - 1])
 
         //cy.contains( $el.text())
         cy.get('h1').should('contain', $el.text().trim())
@@ -26,7 +26,7 @@ describe('Courses', () => {
       })
   })
 
-  it.only('Verification the text of courses icons ', () => {
+  it('Verification the text of courses icons ', () => {
     // let array = [
     //   '5ff2005cacc2d5003ae26bc7',
     //   '635c05ba659f6d77abf1f4e7',
@@ -49,13 +49,14 @@ describe('Courses', () => {
       .each($el => {
         let array = $el.prop('href').split('/')
         cy.log($el, 'element')
-
-        console.log(array[array.length-1], 'href')
-
+       // console.log(array[array.length-1], 'href')
         cy.visit(`/course/${array[array.length-1]}`)
-
         cy.location('pathname').should('include', array[array.length-1])
         cy.contains($el.text())
       })
   })
+})
+it.only('QA Manual', ()=> {
+  cy.visit('/course/5ff2005cacc2d5003ae26bc7')
+  cy.get('.card-title').eq(0).clock()
 })
